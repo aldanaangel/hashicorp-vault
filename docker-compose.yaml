@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  vault:
+    image: registry.connect.redhat.com/hashicorp/vault:1.15.3-ubi
+    container_name: vault-enterprise
+    user: root
+    ports:
+      - "8600:8200"
+    cap_add:
+      - IPC_LOCK
+    command: "server -config=/vault/config/vault.hcl"
+    volumes:
+      - ./vault-config:/vault/config
+      - ./vault-data:/vault/data
+    restart: unless-stopped
